@@ -1,0 +1,9 @@
+{
+  "buildCommand": "cd \"practice website dev/frontend\" && npm install && npm run build",
+  "outputDirectory": "practice website dev/frontend/dist",
+  "installCommand": "cd \"practice website dev/frontend\" && npm install",
+  "framework": null,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
