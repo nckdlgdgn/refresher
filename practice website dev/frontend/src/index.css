@@ -1,0 +1,10 @@
+/* Global styles for Classic Dental Scheduling System */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f7f9fa;
+}
+
+#root {
+  min-height: 100vh;
+}

@@ -1,0 +1,198 @@
+.treatments-container {
+  background: #f7f9fa;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.06);
+  padding: 2rem;
+  margin: 2rem 0;
+}
+.treatments-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.treatments-header h2 {
+  font-size: 1.5rem;
+  color: #2e8b77;
+  margin: 0;
+}
+.add-treatment-btn {
+  background: linear-gradient(90deg, #2e8b77 60%, #3bbfa3 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1.7rem;
+  font-size: 1.08rem;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.add-treatment-btn:hover, .gradient-btn:hover {
+  background: linear-gradient(90deg, #24705e 60%, #2e8b77 100%);
+  box-shadow: 0 4px 16px rgba(44,62,80,0.12);
+}
+.gradient-btn {
+  background: linear-gradient(90deg, #2e8b77 60%, #3bbfa3 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.treatment-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(44,62,80,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+.treatment-form {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 40px rgba(44,62,80,0.18);
+  padding: 2.5rem 2.2rem 2rem 2.2rem;
+  min-width: 380px;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  animation: modalIn 0.2s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(-20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.treatment-form h3 {
+  margin: 0 0 0.5rem 0;
+  color: #2e8b77;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.treatment-form label {
+  font-size: 0.92rem;
+  color: #5a6c7d;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+.treatment-form input,
+.treatment-form select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid #e0e6e9;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #222;
+  background: #fafbfc;
+  transition: border 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+}
+.treatment-form input:focus,
+.treatment-form select:focus {
+  outline: none;
+  border-color: #2e8b77;
+  box-shadow: 0 0 0 3px rgba(46,139,119,0.10);
+  background: #fff;
+}
+.treatment-form input::placeholder {
+  color: #a0aec0;
+  font-weight: 400;
+}
+.treatment-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%235a6c7d' viewBox='0 0 16 16'%3E%3Cpath d='M8 10.5l-5-5h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+.treatment-form select option {
+  padding: 0.5rem;
+}
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+.form-actions .gradient-btn {
+  flex: 1;
+  padding: 0.85rem 1.5rem;
+  font-size: 1.05rem;
+}
+.form-actions .cancel-btn {
+  flex: 0;
+  padding: 0.85rem 1.5rem;
+  font-size: 1.05rem;
+  background: #f0f4f7;
+  color: #5a6c7d;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.form-actions .cancel-btn:hover {
+  background: #e0e6e9;
+}
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+.form-row > * {
+  flex: 1;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.treatments-table-wrapper {
+  overflow-x: auto;
+}
+.treatments-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.treatments-table th, .treatments-table td {
+  padding: 1rem 0.7rem;
+  text-align: left;
+  font-size: 1rem;
+}
+.treatments-table th {
+  background: #f0f4f7;
+  color: #2e8b77;
+  font-weight: 600;
+}
+.treatments-table tr {
+  border-bottom: 1px solid #e0e6e9;
+}
+.treatments-table tr:last-child {
+  border-bottom: none;
+}
+.visit-type {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #fff;
+}
+.visit-type.single {
+  background: #2e8b77;
+}
+.visit-type.multi {
+  background: #5b8def;
+}

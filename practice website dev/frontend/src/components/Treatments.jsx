@@ -1,0 +1,125 @@
+
+import React, { useEffect, useState } from 'react';
+import './Treatments.css';
+
+export default function Treatments() {
+  const [treatments, setTreatments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({ name: '', price: '', duration: '', type: 'SINGLE VISIT' });
+  const [editId, setEditId] = useState(null);
+  const token = localStorage.getItem('token');
+
+  const fetchTreatments = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/treatments', { headers: { Authorization: `Bearer ${token}` } });
+      if (!res.ok) throw new Error('Failed to fetch');
+      setTreatments(await res.json());
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { fetchTreatments(); }, []);
+
+  const handleFormChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+
+  const handleAdd = () => {
+    setForm({ name: '', price: '', duration: '', type: 'SINGLE VISIT' });
+    setEditId(null);
+    setShowForm(true);
+  };
+
+  const handleEdit = t => {
+    setForm({ name: t.name, price: t.price, duration: t.duration, type: t.type });
+    setEditId(t.id);
+    setShowForm(true);
+  };
+
+  const handleDelete = async id => {
+    if (!window.confirm('Delete this treatment?')) return;
+    await fetch(`/api/treatments/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
+    fetchTreatments();
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const method = editId ? 'PUT' : 'POST';
+    const url = editId ? `/api/treatments/${editId}` : '/api/treatments';
+    await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(form),
+    });
+    setShowForm(false);
+    fetchTreatments();
+  };
+
+  return (
+    <div className="treatments-container">
+      <div className="treatments-header">
+        <h2>Treatments</h2>
+        <button className="add-treatment-btn" onClick={handleAdd}>+ Add Treatment</button>
+      </div>
+      {error && <div style={{color:'#c0392b',marginBottom:'1rem'}}>{error}</div>}
+      {loading ? <div>Loading...</div> : (
+        <div className="treatments-table-wrapper">
+          <table className="treatments-table">
+            <thead>
+              <tr>
+                <th>TREATMENT NAME</th>
+                <th>PRICE</th>
+                <th>ESTIMATE DURATION</th>
+                <th>TYPE OF VISIT</th>
+                <th>RATING</th>
+                <th>REVIEW</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {treatments.map((t) => (
+                <tr key={t.id}>
+                  <td>{t.name}</td>
+                  <td>Start from ${t.price}</td>
+                  <td>{t.duration}</td>
+                  <td>
+                    <span className={`visit-type ${t.type === 'MULTIPLE VISIT' ? 'multi' : 'single'}`}>{t.type}</span>
+                  </td>
+                  <td>{t.rating ? t.rating : 'No Rating'}</td>
+                  <td>{t.reviews} Review(s)</td>
+                  <td>
+                    <button onClick={() => handleEdit(t)} style={{marginRight:8}}>Edit</button>
+                    <button onClick={() => handleDelete(t.id)} style={{color:'#c0392b'}}>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {showForm && (
+        <div className="treatment-modal">
+          <form className="treatment-form" onSubmit={handleSubmit}>
+            <h3>{editId ? 'Edit' : 'Add'} Treatment</h3>
+            <input name="name" placeholder="Name" value={form.name} onChange={handleFormChange} required />
+            <input name="price" placeholder="Price" type="number" value={form.price} onChange={handleFormChange} required />
+            <input name="duration" placeholder="Duration" value={form.duration} onChange={handleFormChange} required />
+            <select name="type" value={form.type} onChange={handleFormChange}>
+              <option value="SINGLE VISIT">SINGLE VISIT</option>
+              <option value="MULTIPLE VISIT">MULTIPLE VISIT</option>
+            </select>
+            <div style={{marginTop:'1rem'}}>
+              <button type="submit">Save</button>
+              <button type="button" onClick={()=>setShowForm(false)} style={{marginLeft:8}}>Cancel</button>
+            </div>
+          </form>
+        </div>
+      )}
+    </div>
+  );
+}
