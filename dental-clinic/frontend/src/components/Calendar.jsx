@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Calendar.css';
+import { API_URL } from '../config';
 
 export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -31,10 +32,10 @@ export default function Calendar() {
   const fetchData = async () => {
     try {
       const [apptRes, patRes, dentRes, treatRes] = await Promise.all([
-        fetch('/api/appointments', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/patients', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/dentists', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/treatments', { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/appointments`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/patients`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/dentists`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/treatments`, { headers: { Authorization: `Bearer ${token}` } }),
       ]);
       if (apptRes.ok) setAppointments(await apptRes.json());
       if (patRes.ok) setPatients(await patRes.json());
@@ -42,7 +43,7 @@ export default function Calendar() {
       if (treatRes.ok) setTreatments(await treatRes.json());
       
       // Fetch schedules
-      const schedRes = await fetch('/api/schedules', { headers: { Authorization: `Bearer ${token}` } });
+      const schedRes = await fetch(`${API_URL}/api/schedules`, { headers: { Authorization: `Bearer ${token}` } });
       if (schedRes.ok) setSchedules(await schedRes.json());
     } catch (e) {
       console.error('Failed to fetch data', e);
@@ -190,7 +191,7 @@ export default function Calendar() {
 
   const handleDeleteSchedule = async (scheduleId) => {
     if (!window.confirm('Delete this schedule?')) return;
-    await fetch(`/api/schedules/${scheduleId}`, {
+    await fetch(`${API_URL}/api/schedules/${scheduleId}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -200,7 +201,7 @@ export default function Calendar() {
   const handleSubmitSchedule = async (e) => {
     e.preventDefault();
     const method = editingSchedule ? 'PUT' : 'POST';
-    const url = editingSchedule ? `/api/schedules/${editingSchedule.id}` : '/api/schedules';
+    const url = editingSchedule ? `${API_URL}/api/schedules/${editingSchedule.id}` : `${API_URL}/api/schedules`;
     
     await fetch(url, {
       method,

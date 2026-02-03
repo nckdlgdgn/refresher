@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import './Treatments.css';
+import { API_URL } from '../config';
 
 export default function Treatments() {
   const [treatments, setTreatments] = useState([]);
@@ -15,7 +16,7 @@ export default function Treatments() {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('/api/treatments', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch(`${API_URL}/api/treatments`, { headers: { Authorization: `Bearer ${token}` } });
       if (!res.ok) throw new Error('Failed to fetch');
       setTreatments(await res.json());
     } catch (e) {
@@ -43,14 +44,14 @@ export default function Treatments() {
 
   const handleDelete = async id => {
     if (!window.confirm('Delete this treatment?')) return;
-    await fetch(`/api/treatments/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
+    await fetch(`${API_URL}/api/treatments/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
     fetchTreatments();
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
     const method = editId ? 'PUT' : 'POST';
-    const url = editId ? `/api/treatments/${editId}` : '/api/treatments';
+    const url = editId ? `${API_URL}/api/treatments/${editId}` : `${API_URL}/api/treatments`;
     await fetch(url, {
       method,
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },

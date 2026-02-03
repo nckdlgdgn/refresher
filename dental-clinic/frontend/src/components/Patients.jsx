@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Patients.css';
+import { API_URL } from '../config';
 
 export default function Patients() {
   const [patients, setPatients] = useState([]);
@@ -23,7 +24,7 @@ export default function Patients() {
 
   const fetchPatients = async () => {
     try {
-      const res = await fetch('/api/patients', {
+      const res = await fetch(`${API_URL}/api/patients`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -42,7 +43,7 @@ export default function Patients() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const method = editingPatient ? 'PUT' : 'POST';
-    const url = editingPatient ? `/api/patients/${editingPatient.id}` : '/api/patients';
+    const url = editingPatient ? `${API_URL}/api/patients/${editingPatient.id}` : `${API_URL}/api/patients`;
     
     await fetch(url, {
       method,
@@ -75,7 +76,7 @@ export default function Patients() {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this patient?')) return;
-    await fetch(`/api/patients/${id}`, {
+    await fetch(`${API_URL}/api/patients/${id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` }
     });
@@ -170,7 +171,7 @@ export default function Patients() {
 
         for (const patient of newPatients) {
           try {
-            const res = await fetch('/api/patients', {
+            const res = await fetch(`${API_URL}/api/patients`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import './Appointments.css';
+import { API_URL } from '../config';
 
 export default function Appointments() {
   const [appointments, setAppointments] = useState([]);
@@ -22,9 +23,9 @@ export default function Appointments() {
     setError('');
     try {
       const [a, p, d] = await Promise.all([
-        fetch('/api/appointments', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/patients', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/api/dentists', { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/appointments`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/patients`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/dentists`, { headers: { Authorization: `Bearer ${token}` } }),
       ]);
       if (!a.ok || !p.ok || !d.ok) throw new Error('Failed to fetch');
       setAppointments(await a.json());
@@ -61,14 +62,14 @@ export default function Appointments() {
 
   const handleDelete = async id => {
     if (!window.confirm('Delete this appointment?')) return;
-    await fetch(`/api/appointments/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
+    await fetch(`${API_URL}/api/appointments/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
     fetchAll();
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
     const method = editId ? 'PUT' : 'POST';
-    const url = editId ? `/api/appointments/${editId}` : '/api/appointments';
+    const url = editId ? `${API_URL}/api/appointments/${editId}` : `${API_URL}/api/appointments`;
     const res = await fetch(url, {
       method,
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Auth.css';
+import { API_URL } from '../config';
 
 export default function Auth({ onAuth }) {
   const [mode, setMode] = useState('login');
@@ -14,9 +15,10 @@ export default function Auth({ onAuth }) {
     e.preventDefault();
     setError('');
     setLoading(true);
+    
     try {
       const res = await fetch(
-        mode === 'login' ? '/api/login' : '/api/register',
+        `${API_URL}${mode === 'login' ? '/api/login' : '/api/register'}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
