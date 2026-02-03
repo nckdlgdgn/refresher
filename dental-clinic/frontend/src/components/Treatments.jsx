@@ -68,7 +68,12 @@ export default function Treatments() {
         <button className="add-treatment-btn" onClick={handleAdd}>+ Add Treatment</button>
       </div>
       {error && <div style={{color:'#c0392b',marginBottom:'1rem'}}>{error}</div>}
-      {loading ? <div>Loading...</div> : (
+      {loading ? (
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <span className="loading-text">Loading treatments...</span>
+        </div>
+      ) : (
         <div className="treatments-table-wrapper">
           <table className="treatments-table">
             <thead>
@@ -83,8 +88,8 @@ export default function Treatments() {
               </tr>
             </thead>
             <tbody>
-              {treatments.map((t) => (
-                <tr key={t.id}>
+              {treatments.map((t, index) => (
+                <tr key={t.id} className="stagger-item" style={{animationDelay: `${index * 0.05}s`}}>
                   <td>{t.name}</td>
                   <td>Start from ${t.price}</td>
                   <td>{t.duration}</td>

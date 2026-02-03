@@ -54,15 +54,47 @@
   cursor: pointer;
   border-radius: 10px;
   margin: 0.15rem 0.5rem;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
   font-size: 1rem;
   font-weight: 500;
   color: #fff;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
 }
 .sidebar-nav-item:hover {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.15);
+  transform: translateX(5px);
 }
+
+.sidebar-nav-item:active {
+  transform: translateX(2px);
+}
+
+.sidebar-nav-item.active {
+  background: rgba(255,255,255,0.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Ripple effect */
+.sidebar-nav-item::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+}
+
+.sidebar-nav-item:active::after {
+  width: 200px;
+  height: 200px;
+}
+
 .sidebar-nav-icon {
   display: flex;
   align-items: center;

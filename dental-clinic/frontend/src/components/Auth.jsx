@@ -83,7 +83,7 @@ export default function Auth({ onAuth }) {
             <option value="dentist">Dentist</option>
           </select>
         )}
-        <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading} className={loading ? 'loading' : ''}>
           {loading ? 'Please wait...' : mode === 'login' ? 'Login' : 'Register'}
         </button>
         <div className="auth-switch">

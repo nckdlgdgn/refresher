@@ -91,7 +91,12 @@ export default function Appointments() {
         <button className="add-treatment-btn gradient-btn" onClick={handleAdd}>+ Add Appointment</button>
       </div>
       {error && <div style={{color:'#c0392b',marginBottom:'1rem'}}>{error}</div>}
-      {loading ? <div>Loading...</div> : (
+      {loading ? (
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <span className="loading-text">Loading appointments...</span>
+        </div>
+      ) : (
         <div className="treatments-table-wrapper">
           <table className="treatments-table">
             <thead>
@@ -106,8 +111,8 @@ export default function Appointments() {
               </tr>
             </thead>
             <tbody>
-              {appointments.map((a) => (
-                <tr key={a.id}>
+              {appointments.map((a, index) => (
+                <tr key={a.id} className="stagger-item" style={{animationDelay: `${index * 0.05}s`}}>
                   <td>{patients.find(p=>p.id===a.patient)?.name || a.patient}</td>
                   <td>{dentists.find(d=>d.id===a.dentist)?.name || a.dentist}</td>
                   <td>{a.date}</td>
