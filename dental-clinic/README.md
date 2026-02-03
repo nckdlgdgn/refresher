@@ -2,6 +2,9 @@
 
 A full-stack, production-ready web-based scheduling system for Classic Dental Clinic.
 
+## 🚀 Live Demo
+**[https://frontend-three-blush-10.vercel.app](https://frontend-three-blush-10.vercel.app)**
+
 ## Tech Stack
 - **Frontend:** React (JSX), CSS
 - **Backend:** Node.js, Express, JWT Auth
