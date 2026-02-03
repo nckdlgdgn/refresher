@@ -3,12 +3,33 @@ import React, { useEffect, useState } from 'react';
 import './Appointments.css';
 import { API_URL } from '../config';
 
+// Generate time options from 8am to 6pm
+const generateTimeOptions = () => {
+  const times = [];
+  for (let hour = 8; hour <= 17; hour++) {
+    const startHour = hour > 12 ? hour - 12 : hour;
+    const endHour = (hour + 1) > 12 ? (hour + 1) - 12 : (hour + 1);
+    const startPeriod = hour >= 12 ? 'PM' : 'AM';
+    const endPeriod = (hour + 1) >= 12 ? 'PM' : 'AM';
+    times.push(`${startHour}:00 ${startPeriod} - ${endHour}:00 ${endPeriod}`);
+  }
+  return times;
+};
+
+const TIME_OPTIONS = generateTimeOptions();
+
+// Get today's date in YYYY-MM-DD format
+const getTodayDate = () => {
+  const today = new Date();
+  return today.toISOString().split('T')[0];
+};
+
 export default function Appointments() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ patient: '', dentist: '', date: '', time: '', service: '', status: 'Pending' });
+  const [form, setForm] = useState({ patient: '', dentist: '', date: getTodayDate(), time: '9:00 AM - 10:00 AM', service: '', status: 'Pending' });
   const [editId, setEditId] = useState(null);
   const [patients, setPatients] = useState([]);
   const [dentists, setDentists] = useState([]);
@@ -43,7 +64,7 @@ export default function Appointments() {
   const handleFormChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
   const handleAdd = () => {
-    setForm({ patient: '', dentist: '', date: '', time: '', service: '', status: 'Pending' });
+    setForm({ patient: '', dentist: '', date: getTodayDate(), time: '9:00 AM - 10:00 AM', service: '', status: 'Pending' });
     setPatientSearch('');
     setDentistSearch('');
     setEditId(null);
@@ -230,10 +251,15 @@ export default function Appointments() {
                 <label>Date</label>
                 <input name="date" type="date" value={form.date} onChange={handleFormChange} required />
               </div>
-              <div className="form-group">
-                <label>Time</label>
-                <input name="time" type="time" value={form.time} onChange={handleFormChange} required />
-              </div>
+            </div>
+            
+            <div className="form-group">
+              <label>Time Slot</label>
+              <select name="time" value={form.time} onChange={handleFormChange} required className="time-select">
+                {TIME_OPTIONS.map(time => (
+                  <option key={time} value={time}>{time}</option>
+                ))}
+              </select>
             </div>
             
             <div className="form-group">

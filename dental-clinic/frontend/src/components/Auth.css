@@ -188,3 +188,52 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/* Form subtitle */
+.form-subtitle {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  margin: -1rem 0 1.5rem;
+}
+
+/* Forgot password button */
+.forgot-btn {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s;
+}
+
+.forgot-btn:hover {
+  color: #2e8b77;
+  text-decoration: underline;
+}
+
+/* Reset code input */
+.reset-code-input {
+  text-align: center;
+  font-size: 1.5rem !important;
+  letter-spacing: 8px;
+  font-weight: 600;
+  color: #2e8b77;
+}
+
+.reset-code-input::placeholder {
+  font-size: 1rem;
+  letter-spacing: normal;
+}
+
+/* Success message */
+.auth-success {
+  color: #27ae60;
+  text-align: center;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: #e8f8f0;
+  border-radius: 8px;
+  animation: fadeIn 0.3s ease-out;
+}

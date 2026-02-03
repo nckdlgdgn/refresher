@@ -148,3 +148,90 @@
 .sidebar.collapsed .sidebar-nav-item span:not(.sidebar-nav-icon) {
   display: none;
 }
+/* User Info Section */
+.sidebar-user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.2rem;
+  margin: 0 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.user-avatar-sidebar {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #fff, #e0e0e0);
+  color: #2e8b77;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  overflow: hidden;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.user-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  text-transform: capitalize;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+.collapsed-role-icon {
+  display: none;
+}
+
+/* Collapsed state */
+.sidebar-user-info.collapsed {
+  flex-direction: column;
+  padding: 0.75rem;
+  margin: 0 0.25rem 1rem;
+  gap: 0.5rem;
+}
+
+.sidebar-user-info.collapsed .user-avatar-sidebar {
+  width: 38px;
+  height: 38px;
+  font-size: 1rem;
+}
+
+.sidebar-user-info.collapsed .collapsed-role-icon {
+  display: block;
+  font-size: 1rem;
+}
