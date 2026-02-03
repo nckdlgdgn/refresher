@@ -179,7 +179,12 @@ app.post('/api/register', async (req, res) => {
   if (!username || !password || !role) return res.status(400).json({ message: 'Missing fields' });
   if (users.find(u => u.username === username)) return res.status(409).json({ message: 'User exists' });
   const hashed = await bcrypt.hash(password, 10);
-  users.push({ username, password: hashed, role });
+  users.push({ 
+    username, 
+    password: hashed, 
+    role,
+    registeredAt: new Date().toISOString()
+  });
   res.json({ message: 'Registered successfully' });
 });
 
@@ -211,6 +216,20 @@ function auth(req, res, next) {
 // Example protected route
 app.get('/api/profile', auth, (req, res) => {
   res.json({ user: req.user });
+});
+
+// Get all registered users (for viewing - hides passwords)
+app.get('/api/users', (req, res) => {
+  const safeUsers = users.map(u => ({
+    username: u.username,
+    role: u.role,
+    registeredAt: u.registeredAt || 'N/A'
+  }));
+  res.json({ 
+    count: users.length, 
+    users: safeUsers,
+    note: 'Data is stored in memory only. It resets when server restarts.'
+  });
 });
 
 const PORT = process.env.PORT || 5000;
