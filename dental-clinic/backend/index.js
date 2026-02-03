@@ -516,13 +516,13 @@ app.get('/api/dentists', auth, async (req, res) => {
 
 app.post('/api/dentists', auth, async (req, res) => {
   try {
-    const { name, specialization, available } = req.body;
-    if (!name || !specialization) {
-      return res.status(400).json({ message: 'Name and specialization are required' });
+    const { name, specialization, contact, email, schedule, license, available } = req.body;
+    if (!name) {
+      return res.status(400).json({ message: 'Name is required' });
     }
     const { data, error } = await supabase
       .from('dentists')
-      .insert([{ name, specialization, available: available || [] }])
+      .insert([{ name, specialization, contact, email, schedule, license, available: available || [] }])
       .select()
       .single();
     if (error) throw error;
@@ -535,10 +535,10 @@ app.post('/api/dentists', auth, async (req, res) => {
 app.put('/api/dentists/:id', auth, async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, specialization, available } = req.body;
+    const { name, specialization, contact, email, schedule, license, available } = req.body;
     const { data, error } = await supabase
       .from('dentists')
-      .update({ name, specialization, available })
+      .update({ name, specialization, contact, email, schedule, license, available })
       .eq('id', id)
       .select()
       .single();

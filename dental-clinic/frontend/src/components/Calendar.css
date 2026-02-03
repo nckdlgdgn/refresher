@@ -121,20 +121,45 @@
 .day-events {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  max-height: 70px;
+  gap: 0.3rem;
+  max-height: 80px;
   overflow-y: auto;
 }
 
 .day-event {
-  font-size: 0.75rem;
-  padding: 0.2rem 0.4rem;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.4rem;
   border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.day-event .event-time {
+  font-weight: 700;
+  font-size: 0.65rem;
+  opacity: 0.9;
+}
+
+.day-event .event-title {
+  font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  cursor: pointer;
-  transition: transform 0.1s;
+}
+
+.day-event .event-dentist {
+  font-size: 0.6rem;
+  opacity: 0.8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.day-event.more-events {
+  background: #f0f4f7;
+  color: #666;
+  text-align: center;
+  font-weight: 600;
 }
 
 .day-event:hover {
@@ -403,10 +428,72 @@
   color: #333;
 }
 
-.event-info p {
+.event-info .event-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.event-info .event-header h4 {
   margin: 0;
-  font-size: 0.85rem;
+}
+
+.event-info .status-badge {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.event-info .status-badge.pending {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.event-info .status-badge.confirmed {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.event-info .status-badge.completed {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.event-info .status-badge.cancelled {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.event-info p {
+  margin: 0.35rem 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.event-info .event-time-detail {
+  color: #2e8b77;
+  font-weight: 500;
+}
+
+.event-info .event-service {
+  color: #1565c0;
+}
+
+.event-info .event-dentist-detail {
+  color: #7b1fa2;
+}
+
+.event-info .event-patient {
+  color: #00838f;
+}
+
+.event-info .event-description {
   color: #666;
+  font-style: italic;
 }
 
 .event-actions {

@@ -108,9 +108,13 @@ export default function Calendar() {
         events.push({
           id: `appt-${appt.id}`,
           type: 'appointment',
-          title: `${appt.time} - ${patient?.name || 'Patient'}`,
-          subtitle: `${appt.service} with Dr. ${dentist?.name || 'Dentist'}`,
+          title: appt.service || 'Appointment',
+          patientName: patient?.name || 'Patient',
+          dentistName: dentist?.name || 'Dentist',
+          subtitle: `${patient?.name || 'Patient'} with Dr. ${dentist?.name || 'Dentist'}`,
           time: appt.time,
+          service: appt.service,
+          status: appt.status,
           data: appt
         });
       }
@@ -119,13 +123,18 @@ export default function Calendar() {
     // Add schedules
     schedules.forEach(sched => {
       if (sched.date === dateStr) {
+        const dentist = dentists.find(d => d.id === sched.dentistId || d.id === parseInt(sched.dentistId));
+        const patient = patients.find(p => p.id === sched.patientId || p.id === parseInt(sched.patientId));
         events.push({
           id: `sched-${sched.id}`,
           type: sched.type,
-          title: sched.title,
+          title: sched.title || sched.procedure || 'Schedule',
+          patientName: patient?.name || '',
+          dentistName: dentist?.name || '',
           subtitle: sched.description,
           time: sched.startTime,
           endTime: sched.endTime,
+          procedure: sched.procedure,
           data: sched
         });
       }
@@ -303,14 +312,16 @@ export default function Calendar() {
               >
                 <div className="day-number">{day.date.getDate()}</div>
                 <div className="day-events">
-                  {events.slice(0, 3).map(event => (
+                  {events.slice(0, 2).map(event => (
                     <div key={event.id} className={`day-event ${event.type}`}>
-                      {event.title}
+                      <div className="event-time">{event.time || ''}</div>
+                      <div className="event-title">{event.title}</div>
+                      {event.dentistName && <div className="event-dentist">Dr. {event.dentistName}</div>}
                     </div>
                   ))}
-                  {events.length > 3 && (
-                    <div className="day-event" style={{background:'#f0f4f7', color:'#666'}}>
-                      +{events.length - 3} more
+                  {events.length > 2 && (
+                    <div className="day-event more-events">
+                      +{events.length - 2} more
                     </div>
                   )}
                 </div>
@@ -357,10 +368,29 @@ export default function Calendar() {
                 {getEventsForDate(selectedDate).map(event => (
                   <div key={event.id} className={`day-event-item ${event.type}`}>
                     <div className="event-info">
-                      <h4>{event.title}</h4>
-                      <p>{event.subtitle}</p>
+                      <div className="event-header">
+                        <h4>{event.title}</h4>
+                        {event.status && <span className={`status-badge ${event.status.toLowerCase()}`}>{event.status}</span>}
+                      </div>
                       {event.time && (
-                        <p><strong>Time:</strong> {event.time}{event.endTime ? ` - ${event.endTime}` : ''}</p>
+                        <p className="event-time-detail">
+                          🕐 <strong>{event.time}</strong>{event.endTime ? ` - ${event.endTime}` : ''}
+                        </p>
+                      )}
+                      {event.service && (
+                        <p className="event-service">🦷 <strong>Service:</strong> {event.service}</p>
+                      )}
+                      {event.procedure && (
+                        <p className="event-service">🦷 <strong>Procedure:</strong> {event.procedure}</p>
+                      )}
+                      {event.dentistName && (
+                        <p className="event-dentist-detail">👨‍⚕️ <strong>Dentist:</strong> Dr. {event.dentistName}</p>
+                      )}
+                      {event.patientName && (
+                        <p className="event-patient">👤 <strong>Patient:</strong> {event.patientName}</p>
+                      )}
+                      {event.subtitle && !event.service && !event.procedure && (
+                        <p className="event-description">{event.subtitle}</p>
                       )}
                     </div>
                     {event.type !== 'appointment' && (userRole === 'admin' || userRole === 'staff') && (
@@ -425,9 +455,30 @@ export default function Calendar() {
                   required
                 >
                   <option value="">Select a procedure...</option>
-                  {treatments.map(t => (
-                    <option key={t.id} value={t.name}>{t.name} - ₱{t.price}</option>
-                  ))}
+                  {treatments && treatments.length > 0 ? (
+                    treatments.map(t => (
+                      <option key={t.id} value={t.name}>{t.name} {t.price ? `- ₱${t.price}` : ''}</option>
+                    ))
+                  ) : (
+                    <>
+                      <option value="Teeth Cleaning">Teeth Cleaning</option>
+                      <option value="Dental Check-up">Dental Check-up</option>
+                      <option value="Tooth Extraction">Tooth Extraction</option>
+                      <option value="Dental Filling">Dental Filling</option>
+                      <option value="Root Canal Treatment">Root Canal Treatment</option>
+                      <option value="Teeth Whitening">Teeth Whitening</option>
+                      <option value="Dental Crown">Dental Crown</option>
+                      <option value="Dental Bridge">Dental Bridge</option>
+                      <option value="Dentures">Dentures</option>
+                      <option value="Braces / Orthodontics">Braces / Orthodontics</option>
+                      <option value="Dental Implant">Dental Implant</option>
+                      <option value="Wisdom Tooth Removal">Wisdom Tooth Removal</option>
+                      <option value="Gum Treatment">Gum Treatment</option>
+                      <option value="Dental X-Ray">Dental X-Ray</option>
+                      <option value="Oral Surgery">Oral Surgery</option>
+                      <option value="Emergency Dental Care">Emergency Dental Care</option>
+                    </>
+                  )}
                 </select>
               </div>
             )}

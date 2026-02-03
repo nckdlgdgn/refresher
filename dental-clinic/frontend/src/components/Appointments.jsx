@@ -18,6 +18,30 @@ const generateTimeOptions = () => {
 
 const TIME_OPTIONS = generateTimeOptions();
 
+// Common dental services/treatments
+const SERVICE_OPTIONS = [
+  'Teeth Cleaning',
+  'Dental Check-up',
+  'Tooth Extraction',
+  'Dental Filling',
+  'Root Canal Treatment',
+  'Teeth Whitening',
+  'Dental Crown',
+  'Dental Bridge',
+  'Dentures',
+  'Braces / Orthodontics',
+  'Dental Implant',
+  'Wisdom Tooth Removal',
+  'Gum Treatment',
+  'Dental X-Ray',
+  'Tooth Bonding',
+  'Veneer Installation',
+  'Fluoride Treatment',
+  'Sealant Application',
+  'Oral Surgery',
+  'Emergency Dental Care'
+];
+
 // Get today's date in YYYY-MM-DD format
 const getTodayDate = () => {
   const today = new Date();
@@ -89,20 +113,40 @@ export default function Appointments() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const method = editId ? 'PUT' : 'POST';
-    const url = editId ? `${API_URL}/api/appointments/${editId}` : `${API_URL}/api/appointments`;
-    const res = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      body: JSON.stringify(form),
-    });
-    if (!res.ok) {
-      const data = await res.json();
-      setError(data.message || 'Error');
+    setError('');
+    
+    // Validate that patient and dentist are selected (must have IDs)
+    if (!form.patient) {
+      setError('Please select a patient from the dropdown list');
       return;
     }
-    setShowForm(false);
-    fetchAll();
+    if (!form.dentist) {
+      setError('Please select a dentist from the dropdown list');
+      return;
+    }
+    if (!form.service) {
+      setError('Please select a service/treatment');
+      return;
+    }
+    
+    const method = editId ? 'PUT' : 'POST';
+    const url = editId ? `${API_URL}/api/appointments/${editId}` : `${API_URL}/api/appointments`;
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.message || 'Failed to save appointment');
+        return;
+      }
+      setShowForm(false);
+      fetchAll();
+    } catch (err) {
+      setError('Failed to save appointment. Please try again.');
+    }
   };
 
   return (
@@ -155,8 +199,10 @@ export default function Appointments() {
           <form className="treatment-form" onSubmit={handleSubmit} onClick={e => e.stopPropagation()}>
             <h3>{editId ? 'Edit' : 'Add'} Appointment</h3>
             
+            {error && <div className="form-error">{error}</div>}
+            
             <div className="form-group searchable-dropdown">
-              <label>Patient</label>
+              <label>Patient {form.patient && <span className="selected-badge">✓ Selected</span>}</label>
               <input
                 type="text"
                 placeholder="Search patient by name..."
@@ -202,7 +248,7 @@ export default function Appointments() {
             </div>
             
             <div className="form-group searchable-dropdown">
-              <label>Dentist</label>
+              <label>Dentist {form.dentist && <span className="selected-badge">✓ Selected</span>}</label>
               <input
                 type="text"
                 placeholder="Search dentist by name..."
@@ -264,7 +310,12 @@ export default function Appointments() {
             
             <div className="form-group">
               <label>Service / Treatment</label>
-              <input name="service" placeholder="e.g. Teeth Cleaning" value={form.service} onChange={handleFormChange} required />
+              <select name="service" value={form.service} onChange={handleFormChange} required className="service-select">
+                <option value="">-- Select Service --</option>
+                {SERVICE_OPTIONS.map(service => (
+                  <option key={service} value={service}>{service}</option>
+                ))}
+              </select>
             </div>
             
             <div className="form-group">
