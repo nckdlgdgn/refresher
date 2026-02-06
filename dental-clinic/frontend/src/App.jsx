@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import Sidebar from './components/Sidebar';
+import Header from './components/Header';
 import Treatments from './components/Treatments';
 import Dashboard from './components/Dashboard';
 import Appointments from './components/Appointments';
@@ -23,6 +24,7 @@ function App() {
   const [username, setUsername] = useState(() => localStorage.getItem('username'));
   const [page, setPage] = useState('Dashboard');
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+  const [profilePic, setProfilePic] = useState(() => localStorage.getItem('profilePic') || null);
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
@@ -62,9 +64,15 @@ function App() {
     setToken(null);
     setRole(null);
     setUsername(null);
+    setProfilePic(null);
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('username');
+    localStorage.removeItem('profilePic');
+  };
+
+  const handleProfilePicChange = (pic) => {
+    setProfilePic(pic);
   };
 
   if (!token) {
@@ -93,7 +101,7 @@ function App() {
     }
   }
   else if (page === 'Treatments') content = <Treatments />;
-  else if (page === 'Profile') content = <Profile />;
+  else if (page === 'Profile') content = <Profile profilePic={profilePic} onProfilePicChange={handleProfilePicChange} />;
   else content = (
     <div className="not-found">
       <h2>Page Not Found</h2>
@@ -113,6 +121,15 @@ function App() {
         mobileOpen={mobileMenuOpen}
         onMobileToggle={() => setMobileMenuOpen((o) => !o)}
         activePage={page}
+        profilePic={profilePic}
+      />
+      <Header
+        username={username}
+        role={role}
+        onNavigate={setPage}
+        onLogout={handleLogout}
+        profilePic={profilePic}
+        onProfilePicChange={handleProfilePicChange}
       />
       <main className="main-content modern-main">
         <div className="page-content">

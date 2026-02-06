@@ -4,85 +4,85 @@ import './Sidebar.css';
 const icons = {
   Dashboard: (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <rect x="3" y="3" width="7" height="7" rx="2" fill="currentColor" opacity="0.9"/>
-      <rect x="14" y="3" width="7" height="7" rx="2" fill="currentColor" opacity="0.7"/>
-      <rect x="3" y="14" width="7" height="7" rx="2" fill="currentColor" opacity="0.7"/>
-      <rect x="14" y="14" width="7" height="7" rx="2" fill="currentColor" opacity="0.9"/>
+      <rect x="3" y="3" width="7" height="7" rx="2" fill="currentColor" opacity="0.9" />
+      <rect x="14" y="3" width="7" height="7" rx="2" fill="currentColor" opacity="0.7" />
+      <rect x="3" y="14" width="7" height="7" rx="2" fill="currentColor" opacity="0.7" />
+      <rect x="14" y="14" width="7" height="7" rx="2" fill="currentColor" opacity="0.9" />
     </svg>
   ),
   Appointments: (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <rect x="3" y="6" width="18" height="15" rx="2" fill="currentColor" opacity="0.9"/>
-      <rect x="7" y="3" width="2" height="5" rx="1" fill="currentColor"/>
-      <rect x="15" y="3" width="2" height="5" rx="1" fill="currentColor"/>
-      <circle cx="8" cy="13" r="1.5" fill="white" opacity="0.9"/>
-      <circle cx="12" cy="13" r="1.5" fill="white" opacity="0.7"/>
-      <circle cx="16" cy="13" r="1.5" fill="white" opacity="0.5"/>
+      <rect x="3" y="6" width="18" height="15" rx="2" fill="currentColor" opacity="0.9" />
+      <rect x="7" y="3" width="2" height="5" rx="1" fill="currentColor" />
+      <rect x="15" y="3" width="2" height="5" rx="1" fill="currentColor" />
+      <circle cx="8" cy="13" r="1.5" fill="white" opacity="0.9" />
+      <circle cx="12" cy="13" r="1.5" fill="white" opacity="0.7" />
+      <circle cx="16" cy="13" r="1.5" fill="white" opacity="0.5" />
     </svg>
   ),
   Calendar: (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <rect x="3" y="6" width="18" height="15" rx="2" fill="currentColor" opacity="0.9"/>
-      <rect x="7" y="3" width="2" height="5" rx="1" fill="currentColor"/>
-      <rect x="15" y="3" width="2" height="5" rx="1" fill="currentColor"/>
-      <rect x="6" y="11" width="3" height="3" rx="0.5" fill="white" opacity="0.9"/>
-      <rect x="10.5" y="11" width="3" height="3" rx="0.5" fill="white" opacity="0.7"/>
-      <rect x="15" y="11" width="3" height="3" rx="0.5" fill="white" opacity="0.5"/>
+      <rect x="3" y="6" width="18" height="15" rx="2" fill="currentColor" opacity="0.9" />
+      <rect x="7" y="3" width="2" height="5" rx="1" fill="currentColor" />
+      <rect x="15" y="3" width="2" height="5" rx="1" fill="currentColor" />
+      <rect x="6" y="11" width="3" height="3" rx="0.5" fill="white" opacity="0.9" />
+      <rect x="10.5" y="11" width="3" height="3" rx="0.5" fill="white" opacity="0.7" />
+      <rect x="15" y="11" width="3" height="3" rx="0.5" fill="white" opacity="0.5" />
     </svg>
   ),
   Patients: (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <circle cx="12" cy="8" r="4" fill="currentColor" opacity="0.9"/>
-      <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" fill="currentColor" opacity="0.7"/>
+      <circle cx="12" cy="8" r="4" fill="currentColor" opacity="0.9" />
+      <path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" fill="currentColor" opacity="0.7" />
     </svg>
   ),
   Dentists: (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path d="M12 2C9 2 7 5 7 9c0 3 1 5 2 7 .5 1 1 3 1.5 4 .3.7.8 1.5 1.5 1.5s1.2-.8 1.5-1.5c.5-1 1-3 1.5-4 1-2 2-4 2-7 0-4-2-7-5-7z" fill="currentColor" opacity="0.9"/>
-      <circle cx="10" cy="7" r="1" fill="white" opacity="0.7"/>
-      <circle cx="14" cy="7" r="1" fill="white" opacity="0.7"/>
+      <path d="M12 2C9 2 7 5 7 9c0 3 1 5 2 7 .5 1 1 3 1.5 4 .3.7.8 1.5 1.5 1.5s1.2-.8 1.5-1.5c.5-1 1-3 1.5-4 1-2 2-4 2-7 0-4-2-7-5-7z" fill="currentColor" opacity="0.9" />
+      <circle cx="10" cy="7" r="1" fill="white" opacity="0.7" />
+      <circle cx="14" cy="7" r="1" fill="white" opacity="0.7" />
     </svg>
   ),
   Reports: (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <rect x="3" y="3" width="18" height="18" rx="2" fill="currentColor" opacity="0.9"/>
-      <rect x="6" y="14" width="3" height="5" rx="0.5" fill="white" opacity="0.9"/>
-      <rect x="10.5" y="10" width="3" height="9" rx="0.5" fill="white" opacity="0.8"/>
-      <rect x="15" y="7" width="3" height="12" rx="0.5" fill="white" opacity="0.7"/>
+      <rect x="3" y="3" width="18" height="18" rx="2" fill="currentColor" opacity="0.9" />
+      <rect x="6" y="14" width="3" height="5" rx="0.5" fill="white" opacity="0.9" />
+      <rect x="10.5" y="10" width="3" height="9" rx="0.5" fill="white" opacity="0.8" />
+      <rect x="15" y="7" width="3" height="12" rx="0.5" fill="white" opacity="0.7" />
     </svg>
   ),
   Settings: (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.2"/>
-      <circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.9"/>
-      <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.2" />
+      <circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.9" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   ),
   Accounts: (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <circle cx="9" cy="7" r="4" fill="currentColor" opacity="0.9"/>
-      <circle cx="17" cy="7" r="3" fill="currentColor" opacity="0.6"/>
-      <path d="M2 18c0-3 3-5 7-5s7 2 7 5" fill="currentColor" opacity="0.7"/>
-      <path d="M14 18c0-2 2-4 5-4s5 2 5 4" fill="currentColor" opacity="0.5"/>
+      <circle cx="9" cy="7" r="4" fill="currentColor" opacity="0.9" />
+      <circle cx="17" cy="7" r="3" fill="currentColor" opacity="0.6" />
+      <path d="M2 18c0-3 3-5 7-5s7 2 7 5" fill="currentColor" opacity="0.7" />
+      <path d="M14 18c0-2 2-4 5-4s5 2 5 4" fill="currentColor" opacity="0.5" />
     </svg>
   ),
   Profile: (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <circle cx="12" cy="8" r="5" fill="currentColor" opacity="0.9"/>
-      <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="currentColor" opacity="0.7"/>
+      <circle cx="12" cy="8" r="5" fill="currentColor" opacity="0.9" />
+      <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="currentColor" opacity="0.7" />
     </svg>
   ),
   Treatments: (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <rect x="4" y="4" width="16" height="16" rx="2" fill="currentColor" opacity="0.2"/>
-      <path d="M12 7v10M7 12h10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
+      <rect x="4" y="4" width="16" height="16" rx="2" fill="currentColor" opacity="0.2" />
+      <path d="M12 7v10M7 12h10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   ),
   Logout: (
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <polyline points="16,17 21,12 16,7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="16,17 21,12 16,7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   ),
 };
@@ -97,9 +97,6 @@ const navItemsByRole = {
     { label: 'Treatments' },
     { label: 'Accounts' },
     { label: 'Reports' },
-    { label: 'Settings' },
-    { label: 'Profile' },
-    { label: 'Logout' },
   ],
   staff: [
     { label: 'Dashboard' },
@@ -108,9 +105,6 @@ const navItemsByRole = {
     { label: 'Patients' },
     { label: 'Dentists' },
     { label: 'Treatments' },
-    { label: 'Settings' },
-    { label: 'Profile' },
-    { label: 'Logout' },
   ],
   dentist: [
     { label: 'Dashboard' },
@@ -118,9 +112,6 @@ const navItemsByRole = {
     { label: 'Calendar' },
     { label: 'Patients' },
     { label: 'Treatments' },
-    { label: 'Settings' },
-    { label: 'Profile' },
-    { label: 'Logout' },
   ],
 };
 
@@ -130,12 +121,12 @@ const roleLabels = {
   staff: { label: 'Staff', icon: '👤', color: '#f59e0b' },
 };
 
-export default function Sidebar({ 
-  collapsed, 
-  onToggle, 
-  role, 
-  username, 
-  onLogout, 
+export default function Sidebar({
+  collapsed,
+  onToggle,
+  role,
+  username,
+  onLogout,
   onNavigate,
   mobileOpen,
   onMobileToggle,
@@ -159,7 +150,7 @@ export default function Sidebar({
   return (
     <>
       {/* Mobile Menu Toggle */}
-      <button 
+      <button
         className={`mobile-menu-toggle ${mobileOpen ? 'active' : ''}`}
         onClick={onMobileToggle}
         aria-label="Toggle menu"
@@ -172,7 +163,7 @@ export default function Sidebar({
       </button>
 
       {/* Mobile Overlay */}
-      <div 
+      <div
         className={`sidebar-overlay ${mobileOpen ? 'visible' : ''}`}
         onClick={onMobileToggle}
       />
@@ -185,9 +176,9 @@ export default function Sidebar({
           <button className="sidebar-toggle" onClick={onToggle} title="Toggle sidebar">
             <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
               {collapsed ? (
-                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               ) : (
-                <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               )}
             </svg>
           </button>

@@ -102,7 +102,11 @@ export default function Auth({ onAuth }) {
       <button
         type="button"
         className="eye-btn"
-        onClick={() => setShowPassword(!showPassword)}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setShowPassword(!showPassword);
+        }}
         tabIndex={-1}
       >
         {showPassword ? (

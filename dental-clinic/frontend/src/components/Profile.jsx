@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { API_URL } from '../config';
 import './Profile.css';
 
-export default function Profile() {
+export default function Profile({ profilePic, onProfilePicChange }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
-  
+  const fileInputRef = useRef(null);
+
   // Edit form states
   const [newEmail, setNewEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
@@ -26,7 +27,7 @@ export default function Profile() {
       const token = localStorage.getItem('token');
       const username = localStorage.getItem('username');
       const role = localStorage.getItem('role');
-      
+
       // Get user info from token/localStorage
       setUser({
         username: username || 'User',
@@ -54,7 +55,7 @@ export default function Profile() {
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     setMessage({ type: '', text: '' });
-    
+
     // Validate
     if (newPassword && newPassword !== confirmPassword) {
       setMessage({ type: 'error', text: 'Passwords do not match' });
@@ -73,7 +74,7 @@ export default function Profile() {
     try {
       const token = localStorage.getItem('token');
       const updateData = {};
-      
+
       if (newEmail && newEmail !== user.email) {
         updateData.email = newEmail;
       }
@@ -101,19 +102,19 @@ export default function Profile() {
       if (!res.ok) throw new Error(data.message);
 
       setMessage({ type: 'success', text: 'Profile updated successfully!' });
-      
+
       // Update local state
       if (newEmail) {
         setUser(prev => ({ ...prev, email: newEmail }));
         localStorage.setItem('email', newEmail);
       }
-      
+
       // Clear form
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
       setEditing(false);
-      
+
     } catch (err) {
       setMessage({ type: 'error', text: err.message });
     } finally {
@@ -122,7 +123,7 @@ export default function Profile() {
   };
 
   const getRoleInfo = (role) => {
-    switch(role) {
+    switch (role) {
       case 'admin': return { label: 'Administrator', icon: '👑', color: '#9b59b6' };
       case 'dentist': return { label: 'Dentist', icon: '🦷', color: '#3498db' };
       case 'staff': return { label: 'Staff', icon: '👤', color: '#e67e22' };
@@ -185,7 +186,7 @@ export default function Profile() {
         ) : (
           <form className="edit-form" onSubmit={handleUpdateProfile}>
             <h3>Edit Profile</h3>
-            
+
             <div className="form-group">
               <label>📧 Email Address</label>
               <input

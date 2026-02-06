@@ -627,8 +627,10 @@ p {
   border-radius: var(--radius-xl);
   margin: 1rem;
   margin-left: calc(var(--sidebar-width) + 1rem);
+  margin-top: calc(64px + 1rem);
+  /* Account for header */
   box-shadow: var(--shadow-lg);
-  min-height: calc(100vh - 2rem);
+  min-height: calc(100vh - 64px - 2rem);
   transition: all var(--transition-normal);
   overflow-y: auto;
   overflow-x: hidden;
@@ -637,6 +639,27 @@ p {
 .app-container.sidebar-collapsed .main-content,
 .app-container.sidebar-collapsed .modern-main {
   margin-left: calc(var(--sidebar-collapsed-width) + 1rem);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+
+  .main-content,
+  .modern-main {
+    margin-left: calc(var(--sidebar-collapsed-width) + 1rem);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  .main-content,
+  .modern-main {
+    margin-left: 1rem;
+    margin-top: calc(64px + 1rem);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+  }
 }
 
 /* ===== CARD STYLES ===== */
