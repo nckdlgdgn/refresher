@@ -64,10 +64,10 @@ export default function Treatments() {
   return (
     <div className="treatments-container">
       <div className="treatments-header">
-        <h2>Treatments</h2>
+        <h2>🦷 Treatments</h2>
         <button className="add-treatment-btn" onClick={handleAdd}>+ Add Treatment</button>
       </div>
-      {error && <div style={{color:'#c0392b',marginBottom:'1rem'}}>{error}</div>}
+      {error && <div style={{ color: '#c0392b', marginBottom: '1rem' }}>{error}</div>}
       {loading ? (
         <div className="loading-container">
           <div className="spinner"></div>
@@ -88,40 +88,60 @@ export default function Treatments() {
               </tr>
             </thead>
             <tbody>
-              {treatments.map((t, index) => (
-                <tr key={t.id} className="stagger-item" style={{animationDelay: `${index * 0.05}s`}}>
-                  <td>{t.name}</td>
-                  <td>Start from ${t.price}</td>
-                  <td>{t.duration}</td>
-                  <td>
-                    <span className={`visit-type ${t.type === 'MULTIPLE VISIT' ? 'multi' : 'single'}`}>{t.type}</span>
-                  </td>
-                  <td>{t.rating ? t.rating : 'No Rating'}</td>
-                  <td>{t.reviews} Review(s)</td>
-                  <td>
-                    <button onClick={() => handleEdit(t)} style={{marginRight:8}}>Edit</button>
-                    <button onClick={() => handleDelete(t.id)} style={{color:'#c0392b'}}>Delete</button>
+              {treatments.length === 0 ? (
+                <tr>
+                  <td colSpan="7" style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-muted)' }}>
+                    No treatments found. Add your first treatment!
                   </td>
                 </tr>
-              ))}
+              ) : (
+                treatments.map((t, index) => (
+                  <tr key={t.id} className="stagger-item" style={{ animationDelay: `${index * 0.05}s` }}>
+                    <td>{t.name}</td>
+                    <td>₱{t.price}</td>
+                    <td>{t.duration}</td>
+                    <td>
+                      <span className={`visit-type ${t.type === 'MULTIPLE VISIT' ? 'multi' : 'single'}`}>{t.type}</span>
+                    </td>
+                    <td>{t.rating ? t.rating : 'No Rating'}</td>
+                    <td>{t.reviews || 0} Review(s)</td>
+                    <td>
+                      <button onClick={() => handleEdit(t)}>Edit</button>
+                      <button onClick={() => handleDelete(t.id)}>Delete</button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
       )}
       {showForm && (
-        <div className="treatment-modal">
-          <form className="treatment-form" onSubmit={handleSubmit}>
-            <h3>{editId ? 'Edit' : 'Add'} Treatment</h3>
-            <input name="name" placeholder="Name" value={form.name} onChange={handleFormChange} required />
-            <input name="price" placeholder="Price" type="number" value={form.price} onChange={handleFormChange} required />
-            <input name="duration" placeholder="Duration" value={form.duration} onChange={handleFormChange} required />
-            <select name="type" value={form.type} onChange={handleFormChange}>
-              <option value="SINGLE VISIT">SINGLE VISIT</option>
-              <option value="MULTIPLE VISIT">MULTIPLE VISIT</option>
-            </select>
-            <div style={{marginTop:'1rem'}}>
-              <button type="submit">Save</button>
-              <button type="button" onClick={()=>setShowForm(false)} style={{marginLeft:8}}>Cancel</button>
+        <div className="treatment-modal" onClick={() => setShowForm(false)}>
+          <form className="treatment-form" onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
+            <h3>{editId ? '✏️ Edit Treatment' : '➕ Add Treatment'}</h3>
+            <div className="form-group">
+              <label>Treatment Name</label>
+              <input name="name" placeholder="e.g. Teeth Cleaning" value={form.name} onChange={handleFormChange} required />
+            </div>
+            <div className="form-group">
+              <label>Price (₱)</label>
+              <input name="price" placeholder="Enter price" type="number" value={form.price} onChange={handleFormChange} required />
+            </div>
+            <div className="form-group">
+              <label>Duration</label>
+              <input name="duration" placeholder="e.g. 30-60 minutes" value={form.duration} onChange={handleFormChange} required />
+            </div>
+            <div className="form-group">
+              <label>Type of Visit</label>
+              <select name="type" value={form.type} onChange={handleFormChange}>
+                <option value="SINGLE VISIT">SINGLE VISIT</option>
+                <option value="MULTIPLE VISIT">MULTIPLE VISIT</option>
+              </select>
+            </div>
+            <div className="form-actions">
+              <button type="submit">{editId ? 'Update Treatment' : 'Add Treatment'}</button>
+              <button type="button" onClick={() => setShowForm(false)}>Cancel</button>
             </div>
           </form>
         </div>
@@ -129,3 +149,4 @@ export default function Treatments() {
     </div>
   );
 }
+
