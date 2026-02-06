@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-
 import Sidebar from './components/Sidebar';
 import Treatments from './components/Treatments';
 import Dashboard from './components/Dashboard';
@@ -18,6 +17,7 @@ import Auth from './components/Auth';
 
 function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [token, setToken] = useState(() => localStorage.getItem('token'));
   const [role, setRole] = useState(() => localStorage.getItem('role'));
   const [username, setUsername] = useState(() => localStorage.getItem('username'));
@@ -28,6 +28,26 @@ function App() {
     document.body.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
   }, [theme]);
+
+  // Close mobile menu on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [mobileMenuOpen]);
 
   const handleAuth = (jwt, userRole, user) => {
     setToken(jwt);
@@ -52,7 +72,7 @@ function App() {
   }
 
   let content;
-  if (page === 'Dashboard') content = <Dashboard />;
+  if (page === 'Dashboard') content = <Dashboard username={username} role={role} />;
   else if (page === 'Appointments') content = <Appointments />;
   else if (page === 'Calendar') content = <Calendar />;
   else if (page === 'Patients') content = <Patients />;
@@ -60,16 +80,26 @@ function App() {
   else if (page === 'Reports') content = <Reports />;
   else if (page === 'Settings') content = <Settings theme={theme} setTheme={setTheme} />;
   else if (page === 'Accounts') {
-    // Only admin can access Accounts
     if (role === 'admin') {
       content = <Accounts />;
     } else {
-      content = <div style={{padding:'2rem', textAlign:'center'}}><h2>⛔ Access Denied</h2><p>Admin access required</p></div>;
+      content = (
+        <div className="access-denied">
+          <div className="access-denied-icon">🔒</div>
+          <h2>Access Denied</h2>
+          <p>Administrator privileges required to access this page.</p>
+        </div>
+      );
     }
   }
   else if (page === 'Treatments') content = <Treatments />;
   else if (page === 'Profile') content = <Profile />;
-  else content = <div style={{padding:'2rem'}}>Page not found</div>;
+  else content = (
+    <div className="not-found">
+      <h2>Page Not Found</h2>
+      <p>The page you're looking for doesn't exist.</p>
+    </div>
+  );
 
   return (
     <div className={`app-container modern-app ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
@@ -80,9 +110,14 @@ function App() {
         username={username}
         onLogout={handleLogout}
         onNavigate={setPage}
+        mobileOpen={mobileMenuOpen}
+        onMobileToggle={() => setMobileMenuOpen((o) => !o)}
+        activePage={page}
       />
       <main className="main-content modern-main">
-        {content}
+        <div className="page-content">
+          {content}
+        </div>
       </main>
     </div>
   );
