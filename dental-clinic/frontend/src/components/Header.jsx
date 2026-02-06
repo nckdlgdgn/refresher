@@ -119,6 +119,23 @@ export default function Header({
 
                             <div className="profile-menu-divider"></div>
 
+                            <button className="profile-menu-item" onClick={() => handleMenuItemClick('profile')}>
+                                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                View Profile
+                            </button>
+
+                            <button className="profile-menu-item" onClick={() => handleMenuItemClick('upload')}>
+                                <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                    <circle cx="8.5" cy="8.5" r="1.5" />
+                                    <polyline points="21,15 16,10 5,21" />
+                                </svg>
+                                Change Photo
+                            </button>
+
                             <button className="profile-menu-item logout" onClick={() => handleMenuItemClick('logout')}>
                                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                     <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
