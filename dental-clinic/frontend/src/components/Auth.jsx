@@ -89,24 +89,29 @@ export default function Auth({ onAuth }) {
     setSuccess('');
   };
 
-  const PasswordField = ({ value, onChange, placeholder = "Password" }) => (
+  const togglePassword = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowPassword(prev => !prev);
+  };
+
+  // Inline password field JSX helper (not a component)
+  const renderPasswordInput = (value, setValue, placeholder = "Password") => (
     <div className="password-field">
       <input
         type={showPassword ? 'text' : 'password'}
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChange={(e) => setValue(e.target.value)}
         required
         minLength={6}
+        autoComplete="current-password"
       />
       <button
         type="button"
         className="eye-btn"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          setShowPassword(!showPassword);
-        }}
+        onClick={togglePassword}
+        onMouseDown={(e) => e.preventDefault()}
         tabIndex={-1}
       >
         {showPassword ? (
@@ -160,7 +165,7 @@ export default function Auth({ onAuth }) {
         required
         className="reset-code-input"
       />
-      <PasswordField value={newPassword} onChange={e => setNewPassword(e.target.value)} placeholder="New Password" />
+      {renderPasswordInput(newPassword, setNewPassword, "New Password")}
       <button type="submit" disabled={loading} className={`auth-btn primary ${loading ? 'loading' : ''}`}>
         {loading ? 'Resetting...' : 'Change Password'}
       </button>
@@ -195,8 +200,9 @@ export default function Auth({ onAuth }) {
           value={username}
           onChange={e => setUsername(e.target.value)}
           required
+          autoComplete="username"
         />
-        <PasswordField value={password} onChange={e => setPassword(e.target.value)} />
+        {renderPasswordInput(password, setPassword)}
 
         <button type="submit" disabled={loading} className={`auth-btn primary ${loading ? 'loading' : ''}`}>
           {loading ? 'Please wait...' : isLogin ? 'Sign In' : 'Create Account'}
@@ -230,15 +236,13 @@ export default function Auth({ onAuth }) {
         </p>
 
         {!isLogin && (
-          <>
-            <input
-              type="email"
-              placeholder="Email Address"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-            />
-          </>
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+          />
         )}
         <input
           type="text"
@@ -246,8 +250,9 @@ export default function Auth({ onAuth }) {
           value={username}
           onChange={e => setUsername(e.target.value)}
           required
+          autoComplete="username"
         />
-        <PasswordField value={password} onChange={e => setPassword(e.target.value)} />
+        {renderPasswordInput(password, setPassword)}
 
         {!isLogin && (
           <div className="role-selector">
