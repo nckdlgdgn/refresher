@@ -310,11 +310,15 @@
   backdrop-filter: blur(4px);
   z-index: 90;
   opacity: 0;
+  pointer-events: none;
+  /* Don't block clicks when hidden */
   transition: opacity var(--transition-normal);
 }
 
 .sidebar-overlay.visible {
   opacity: 1;
+  pointer-events: auto;
+  /* Block clicks only when visible */
 }
 
 /* ===== RESPONSIVE STYLES ===== */
